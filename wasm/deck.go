@@ -1,20 +1,23 @@
 package main
 
 import (
+	"errors"
 	"regexp"
 	"strconv"
 )
 
+var ErrDeckIll = errors.New("Illegal deck value")
+
 var poolRegexp = regexp.MustCompile(`(\d*)(\w)`)
 
 // using the template make a proto-deck
-func deckBuilder(pool string) []byte {
+func deckBuilder(pool string) ([]byte, error) {
 	d := make([]byte, 60)
 
 	// parse the deck template
 	p := poolRegexp.FindAllStringSubmatch(pool, -1)
 	if p == nil {
-		return d
+		return d, ErrDeckIll
 	}
 
 	// fill the deck
@@ -34,5 +37,5 @@ func deckBuilder(pool string) []byte {
 			c++
 		}
 	}
-	return d
+	return d, nil
 }

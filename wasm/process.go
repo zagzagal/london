@@ -5,9 +5,25 @@ import (
 	"math/rand"
 )
 
+func inputVal(poo, eval string) bool {
+	job, err := deckBuilder(pool)
+	if err != nil {
+		return false
+	}
+
+	_, err = handCheck(eval, job[:handSize])
+	if err != nil {
+		return false
+	}
+	return true
+}
+
 func deckCheck(pool, eval string) bool {
 	// Handle the work
-	job := deckBuilder(pool)
+	job, err := deckBuilder(pool)
+	if err != nil {
+		return false
+	}
 
 	result := false
 	for try := handSize; try != maxMul-1; try-- {
@@ -20,7 +36,7 @@ func deckCheck(pool, eval string) bool {
 				handSize-maxMul+1,
 			)
 		}
-		result = handCheck(eval, job[:handSize])
+		result, _ = handCheck(eval, job[:handSize])
 		if result {
 			return result
 		}

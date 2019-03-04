@@ -9,13 +9,13 @@ import (
 	"regexp"
 	"strconv"
 
-	"mulwasm/wasm/evalbool"
+	"github.com/zagzagal/london/wasm/evalbool"
 )
 
 var checkRegexp = regexp.MustCompile(`(\d*)(\w|\&|\||\(|\)|\^|!)`)
 
 // Check for the eval condition
-func handCheck(eval string, h []byte) bool {
+func handCheck(eval string, h []byte) (bool, error) {
 	cards := make(map[byte]int)
 
 	// Count the cards in the hand
@@ -71,14 +71,13 @@ func handCheck(eval string, h []byte) bool {
 	// evaluate the expression
 	x, err := evalbool.Eval(exp)
 	if err != nil {
-		fmt.Println(err)
-		return false
+		return false, err
 	}
 
 	if debug {
 		fmt.Println("\ntry", eval, cards, exp, x, e)
 	}
-	return x
+	return x, nil
 }
 
 // is the character an opperation?

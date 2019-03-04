@@ -23,7 +23,9 @@ var quiet = false
 
 func registerCallbacks() {
 	a := js.FuncOf(DeckCheck)
+	v := js.FuncOf(Validate)
 	js.Global().Set("deckCheck", a)
+	js.Global().Set("validateInput", v)
 }
 
 func DeckCheck(this js.Value, i []js.Value) interface{} {
@@ -34,6 +36,18 @@ func DeckCheck(this js.Value, i []js.Value) interface{} {
 
 	res := deckCheck(pool, eval)
 	return res
+}
+
+func Validate(this js.Value, i []js.Value) interface{} {
+	pool := i[0].String()
+	eval := i[1].String()
+	m := i[2].String()
+	_, err := strconv.Atoi(m)
+	if err != nil {
+		return false
+	}
+
+	return inputVal(pool, eval)
 }
 
 func main() {

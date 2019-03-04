@@ -27,30 +27,49 @@ func push(l *list.List, b bool) {
 // value
 func EvalRPN(exp []byte) (bool, error) {
 	s := list.New()
+	malformed := false
+	check := func(i int) bool {
+		if s.Len() < i {
+			malformed = true
+			return false
+		}
+		return true
+	}
 
 	for _, v := range exp {
 		switch v {
 		case '!':
-			a := pop(s)
-			push(s, !a)
+			if check(1) {
+				a := pop(s)
+				push(s, !a)
+			}
 		case '&':
-			a := pop(s)
-			b := pop(s)
-			push(s, a && b)
+			if check(2) {
+				a := pop(s)
+				b := pop(s)
+				push(s, a && b)
+			}
 		case '|':
-			a := pop(s)
-			b := pop(s)
-			push(s, a || b)
+			if check(2) {
+				a := pop(s)
+				b := pop(s)
+				push(s, a || b)
+			}
 		case '^':
-			a := pop(s)
-			b := pop(s)
-			push(s, a != b)
+			if check(2) {
+				a := pop(s)
+				b := pop(s)
+				push(s, a != b)
+			}
 		case 'T', 't':
 			push(s, true)
 		case 'F', 'f':
 			push(s, false)
 		default:
 			return false, ErrCharIll
+		}
+		if malformed {
+			return false, ErrEval
 		}
 	}
 	if s.Len() != 1 {

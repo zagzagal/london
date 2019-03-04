@@ -9,15 +9,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>London Mulligan simulator</title>
-
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
-
-
-<link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
-
-
-<link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
-<link rel="stylesheet" href="main.css">
+		<link rel="stylesheet" href="main.css">
 
 	</head>
 
@@ -63,7 +55,8 @@ function process() {
 			s++;
 		}
 	}*/
-	var i = 0;
+		var i = 0;
+	if (validateInput(p, e, mHand)){
 	(function doSort() {
 		if (i%tick==0) {
 			bar.value=i;
@@ -80,6 +73,10 @@ function process() {
 			outProgress(s, max);
 		}
 	})();
+	} else {
+		document.getElementById("output").innerHTML = 
+			`Invalid Input`;
+	}
 
 }
 
@@ -97,21 +94,21 @@ function outProgress(s, max) {
 			<form>
 				<fieldset>
 					<div class="input-group fluid">
-					<label for="pool">Card Pool</label>
-					<input type="text" id="pool" />
+						<label for="pool">Card Pool</label>
+						<input type="text" id="pool" />
 					</div>
 					<div class="input-group fluid">
-					<label for="eval">Logic</label>
-					<input type="text" id="eval" />
+						<label for="eval">Logic</label>
+						<input type="text" id="eval" />
 					</div>
 					<div class="input-group fluid">
-					<label for="trys">Number of simulations</label>
-					<input type="number" id="trys" min="1" value="1000">
+						<label for="trys">Number of simulations</label>
+						<input type="number" id="trys" min="1" value="1000">
 					</div>
 					<div class="input-group fluid">
-					<label type="minHand">Mininum hand size</label>
-					<input type="number" id="minHand" min="1" max="7" value="5">
-					<div>
+						<label type="minHand">Mininum hand size</label>
+						<input type="number" id="minHand" min="1" max="7" value="5">
+						<div>
 				</fieldset>
 			</form>
 			<button result=false onClick="process();" class="primary" id="runButton" >Run</button>
