@@ -15,7 +15,7 @@ import (
 var checkRegexp = regexp.MustCompile(`(\d*)(\w|\&|\||\(|\)|\^|!)`)
 
 // Check for the eval condition
-func check(eval string, h []byte) bool {
+func handCheck(eval string, h []byte) bool {
 	cards := make(map[byte]int)
 
 	// Count the cards in the hand

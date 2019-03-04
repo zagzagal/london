@@ -5,9 +5,10 @@
 package main
 
 import (
-	"fmt"
+	"math/rand"
 	"strconv"
 	"syscall/js"
+	"time"
 )
 
 // Ya config globals... IDK
@@ -20,39 +21,18 @@ var maxMul = 5
 var debug = false
 var quiet = false
 
-func output(b bool) {
-	js.Global().Get("document").Call("getElementById", "runButton").Set("result", b)
-}
-
-func updateProg(i, n int) {
-	pb := js.Global().Get("document").Call("getElementById",
-		"prog")
-	pb.Set("value", i)
-	pb.Set("max", n)
-}
-
-func GetData() {
-	p := js.Global().Get("document").Call("getElementById",
-		"pool").Get("value").String()
-	e := js.Global().Get("document").Call("getElementById",
-		"eval").Get("value").String()
-	pool = p
-	eval = e
-}
-
 func registerCallbacks() {
-	s := js.FuncOf(Stuff)
-	js.Global().Set("start", js.FuncOf(start))
-	js.Global().Set("stuff", s)
+	a := js.FuncOf(DeckCheck)
+	js.Global().Set("deckCheck", a)
 }
 
-func Stuff(this js.Value, i []js.Value) interface{} {
+func DeckCheck(this js.Value, i []js.Value) interface{} {
 	pool := i[0].String()
 	eval := i[1].String()
 	m := i[2].String()
 	maxMul, _ = strconv.Atoi(m)
 
-	res := doStuff(pool, eval)
+	res := deckCheck(pool, eval)
 	return res
 }
 
@@ -61,23 +41,7 @@ func main() {
 
 	println("london mul WASM edition Initialized")
 	// register functions
+	rand.Seed(time.Now().UTC().UnixNano())
 	registerCallbacks()
 	<-c
-}
-
-func start(this js.Value, i []js.Value) interface{} {
-	GetData()
-	// print the header
-	if !quiet {
-		fmt.Printf("London muligan sim\n")
-		fmt.Printf("Deck Size = %d\n", deckSize)
-		fmt.Printf("Hand Size = %d\n", handSize)
-		fmt.Printf("Min after muligan hand size = %d\n\n", maxMul)
-		fmt.Printf("Deck String: %s\n", pool)
-		fmt.Printf("eval String: %s\n", eval)
-	}
-
-	// do the thing that you do
-	process(pool, eval)
-	return nil
 }
