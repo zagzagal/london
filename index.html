@@ -14,9 +14,19 @@
         width: 95%;
   }
   section {
-  border: 1px solid;
-  padding: 10px;
-  box-shadow: 2px 5px #888888;
+          padding: 5px;
+            background: #fff;
+  border-radius: 2px;
+  display: inline-block;
+  margin: 1rem;
+  position: relative;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  }
+  button {
+          width: 50%;
+  }
+  .center {
+          text-align: center;
   }
 
   </style>
@@ -48,10 +58,10 @@
           "5">
         </div>
       </fieldset>
-      <div>
+      <div class="center">
         <button onclick="process();" id="runButton">Run</button>
       </div>
-      <div>
+      <div class="center">
         <div>
           <h3>Results:</h3>
         </div>
