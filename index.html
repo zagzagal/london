@@ -1,72 +1,68 @@
 <!DOCTYPE html>
-<!--
-        Copyright 2018 The Go Authors. All rights reserved.
-        Use of this source code is governed by a BSD-style
-        license that can be found in the LICENSE file.
--->
 <html>
 <head>
   <meta name="generator" content=
   "HTML Tidy for HTML5 for Linux version 5.6.0">
   <meta charset="utf-8">
   <title>London Mulligan simulator</title>
-  <!--<link rel="stylesheet" href="css/minireset.min.css">-->
-  <link rel="stylesheet" href="css/wing.min.css">
-  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/marx.min.css">
+  <style>
+  h1, h3, h4 {
+        text-align: center;
+  }
+  progress {
+        width: 95%;
+  }
+  section {
+  border: 1px solid;
+  padding: 10px;
+  box-shadow: 2px 5px #888888;
+  }
+
+  </style>
 </head>
 <body>
-  <!--
-          Add the following polyfill for Microsoft Edge 17/18 support:
-          <script src="https://cdn.jsdelivr.net/npm/text-encoding@0.7.0/lib/encoding.min.js"></script>
-          (see https://caniuse.com/#feat=textencoder)
-          -->
   <script src="wasm_exec.js"></script> 
   <script src="main.js" type="text/javascript"></script>
-  <header class="container center">
+  <header>
     <h1>London Mulligan Simulator</h1>
   </header>
-  <section class="container">
-    <div class="cards">
-      <div class="card">
-        <div class="card-body">
-          <div class="row">
-            <label for="pool">Card Pool</label> <input type="text"
-            id="pool">
-          </div>
-          <div class="row">
-            <label for="eval">Logic</label> <input type="text" id=
-            "eval">
-          </div>
-          <div class="row">
-            <div class="col">
-              <label for="trys">Number of simulations</label>
-              <input type="number" id="trys" min="1" value="1000">
-            </div>
-            <div class="col">
-              <label for="minHand">Mininum hand size</label>
-              <input type="number" id="minHand" min="1" max="7"
-              value="5">
-            </div>
-          </div>
+  <main>
+    <section>
+      <fieldset>
+        <div>
+          <label for="pool">Card Pool</label> <input type="text"
+          id="pool">
         </div>
-        <div class="card-footer center text-center">
-          <button onclick="process();" id="runButton">Run</button>
+        <div>
+          <label for="eval">Logic</label> <input type="text" id=
+          "eval">
         </div>
-        <div class="card">
-          <div class="card-header center text-center">
-            <h3>Results:</h3>
-          </div>
-          <div class="card-body center text-center">
-            <progress id="progBar" value="0" max="100"></progress>
-          </div>
-          <div class="card-footer center text-center">
-            <h4 id="output"></h4>
-          </div>
+        <div>
+          <label for="trys">Number of simulations</label>
+          <input type="number" id="trys" min="1" value="1000">
+        </div>
+        <div>
+          <label for="minHand">Mininum hand size</label>
+          <input type="number" id="minHand" min="1" max="7" value=
+          "5">
+        </div>
+      </fieldset>
+      <div>
+        <button onclick="process();" id="runButton">Run</button>
+      </div>
+      <div>
+        <div>
+          <h3>Results:</h3>
+        </div>
+        <div>
+          <progress id="progBar" value="0" max="100"></progress>
+        </div>
+        <div>
+          <h4 id="output"></h4>
         </div>
       </div>
-    </div>
-  </section>
-  <section class="container">
+    </section>
     <article>
       <h3>What is it?</h3>
       <p>This is an experimental london mulligan monti carlo
@@ -100,16 +96,16 @@
         <li>!(a&amp;b)</li>
       </ul>
     </article>
-  </section>
-  <footer class="container center text-center">
-    <div class="row">
-      <div class="col">
+  </main>
+  <footer>
+    <div>
+      <div>
         <p>By Paul Schuster</p>
       </div>
-      <div class="col">
+      <div>
         <p>Writen in Go WASM</p>
       </div>
-      <div class="col">
+      <div>
         <p>v 0.2.5</p>
       </div>
     </div>
